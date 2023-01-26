@@ -1,19 +1,18 @@
 {
   "name": "strapi-common-api",
   "description": "provide some common request api service functions and strapi types support for strapi based frontend apps using typescript",
-  "version": "0.0.12",
+  "version": "0.0.15",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/LittleBadBad/strapi-common-type"
   },
-  "files": [
-    "src/index.ts",
-    "src/services.ts",
-    "src/types.ts"
-  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "keywords": [
     "strapi",
     "frontend",
+    "types",
+    "strapi types",
     "typescript"
   ],
   "peerDependencies": {

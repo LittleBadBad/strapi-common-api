@@ -119,3 +119,18 @@ export type ResponseMeta = {
         { page: number, pageSize: number, pageCount: number }) &
         { total: number }
 }
+
+export interface UserInfo {
+    username: string;
+    email: string;
+    provider: string;
+    confirmed: boolean;
+    blocked: boolean;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface User<T = UserInfo> {
+    id: number;
+    attributes: T
+}
