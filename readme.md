@@ -40,7 +40,12 @@ export function getPosts(query?: Query<Post>): Promise<Return<Post[]>> {
 }
 
 // here your editor will give you some type hints
-getPosts({filters: {title: {$contains: "test"}}})
+getPosts({
+    filters: {
+        title: {$contains: "test"}
+    },
+    populate: ["user"]
+})
 ```
 
 ### functions
