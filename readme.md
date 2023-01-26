@@ -45,6 +45,8 @@ getPosts({filters: {title: {$contains: "test"}}})
 
 ### functions
 
+#### collection type api
+
 - getMany
 
 get many resources
@@ -104,6 +106,14 @@ type – strapi content-type name
 id – resource id
 
 query – strapi query object
+
+#### single type api
+
+- get
+- put
+- remove
+
+#### auth api
 
 - login
 - register

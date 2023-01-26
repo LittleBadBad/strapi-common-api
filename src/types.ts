@@ -68,7 +68,7 @@ type OmitByType<T, Value> = {
 }
 
 export type OmitOther<T extends Record<string, any | { data: any }>> = OmitByType<T, { data: any }>
-export type PickOther<T extends Record<string, any | { data: any }>> = PickByType<T, { data: any }>
+export type PickOther<T extends Record<string, any | { data: any }>> = OmitByType<T, string | number | boolean>
 
 export type MergeAttrs<T extends BaseType> = {
     [K in keyof OmitOther<T["attributes"]> | "id"]?:
