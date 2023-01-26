@@ -134,3 +134,15 @@ export interface User<T = UserInfo> {
     id: number;
     attributes: T
 }
+
+export type InputData<T extends BaseType> = MergeAttrs<T> & RelationData<T>
+
+export type UserLogged<T = UserInfo> = {
+    user: T & { id: number },
+    jwt: string
+}
+
+export type Response<T> = {
+    data: T
+    meta: ResponseMeta
+}
