@@ -1,3 +1,5 @@
+import {Article} from "../test/Article";
+
 export type Locale = 'ar' |
     'fr' |
     'cs' |
@@ -100,6 +102,14 @@ export type Sort<T> = Sortables<T>
     | { [K in Sortables<T>]?: Direction }
     | { [K in Sortables<T>]?: Direction }[];
 
+
+export type PopulateObj<T extends BaseType> = {
+    [K in keyof PickOther<T["attributes"]>]?: { populate?: Populate<T["attributes"][K]["data"]> }
+}
+
+export type Populate<T extends BaseType> =
+    (keyof PickOther<T["attributes"]>)[] | PopulateObj<T>
+
 /**
  * query object followed by each strapi url
  */
@@ -111,7 +121,7 @@ export interface Query<T extends BaseType> {
         { page: number, pageSize: number, withCount: boolean }
     sort?: Sort<MergeAttrs<T>>
     fields?: (keyof T["attributes"])[]
-    populate?: (keyof PickOther<T["attributes"]>)[]
+    populate?: Populate<T>
 }
 
 export type ResponseMeta = {

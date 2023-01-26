@@ -1,5 +1,5 @@
 import {Post} from "./Post";
-import {collection, Filters, InputData, MergeAttrs, PickOther, Sort} from "../src";
+import {collection, Filters, InputData, MergeAttrs, PickOther, Populate, Sort} from "../src";
 import {PostVote} from "./PostVote";
 import {Article} from "./Article";
 
@@ -59,4 +59,12 @@ const f: InputData<Post> = {
 
 const g: keyof PickOther<Article["attributes"]> = "blocks"
 
+const h: Populate<Article> = {
+    author: {
+        populate: ["avatar"]
+    },
+    category: {
+        populate: ["articles"]
+    }
+}
 collection.getMany<Article>('articles', {populate: ["blocks"]})
