@@ -59,11 +59,11 @@ type AttributeOperators<T, K extends keyof T> = {
 
 export type BaseType = { id: number, attributes: Record<string, any | { data: any }> }
 
-type PickByType<T, Value> = {
+export type PickByType<T, Value> = {
     [P in keyof T as T[P] extends Value | undefined ? P : never]: T[P]
 }
 
-type OmitByType<T, Value> = {
+export type OmitByType<T, Value> = {
     [P in keyof T as T[P] extends Value | undefined ? never : P]: T[P]
 }
 
@@ -102,7 +102,7 @@ export type Sort<T> = Sortables<T>
 
 
 export type PopulateObj<T extends BaseType> = {
-    [K in keyof PickOther<T["attributes"]>]?: { populate?: Populate<T["attributes"][K]["data"]> }
+    [K in keyof PickOther<T["attributes"]>]?: { populate?: Populate<Required<T["attributes"]>[K]["data"]> }
 }
 
 export type Populate<T extends BaseType> =

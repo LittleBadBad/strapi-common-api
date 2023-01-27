@@ -15,6 +15,6 @@ export interface Article {
         cover?: { data: Media };
         author?: { data: Author };
         category?: { data: Category };
-        blocks?: (M | Quote | RichText | Slider)[]
+        blocks?: { data: (M | Quote | RichText | Slider)[] }
     }
 }

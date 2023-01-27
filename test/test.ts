@@ -2,6 +2,7 @@ import {Post} from "./Post";
 import {collection, Filters, InputData, MergeAttrs, PickOther, Populate, Sort} from "../src";
 import {PostVote} from "./PostVote";
 import {Article} from "./Article";
+import {Query} from "../dist";
 
 const a: MergeAttrs<Post> = {
     content: undefined,
@@ -67,4 +68,25 @@ const h: Populate<Article> = {
         populate: ["articles"]
     }
 }
-collection.getMany<Article>('articles', {populate: ["blocks"]})
+
+const i: Query<Article> = {
+    populate: {
+        author: {
+            populate: ["avatar"]
+        }
+    }
+}
+const j: Article["attributes"]["author"]["data"] = {attributes: {articles: {data: []}}, id: 0}
+
+collection.getMany<Article>('articles', {
+    filters: {
+        slug: {
+            $eq: ""
+        }
+    },
+    populate: {
+        author: {
+            populate: ["avatar", "s"]
+        }
+    }
+})
