@@ -1,5 +1,3 @@
-import {Article} from "../test/Article";
-
 export type Locale = 'ar' |
     'fr' |
     'cs' |

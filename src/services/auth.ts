@@ -1,5 +1,5 @@
 import {UserInfo, UserLogged} from "../types";
-import {strapiRequest} from "../services";
+import {strapiRequest} from "./request";
 
 function login<T = UserInfo>({identifier, password}: {
     identifier: string,

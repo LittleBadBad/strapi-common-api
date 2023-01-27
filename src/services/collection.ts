@@ -1,4 +1,4 @@
-import {BaseType, InputData, MergeAttrs, Query, RelationData, ResponseMeta, Response} from "../types";
+import {BaseType, InputData, Query, Response} from "../types";
 import {strapiRequest} from "./request";
 import qs from "qs";
 

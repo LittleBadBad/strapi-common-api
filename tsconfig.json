@@ -23,7 +23,7 @@
     "noEmit": false,
     "outDir": "dist"
   },
-  "include": [
-    "src"
+  "files": [
+    "src/index.ts"
   ]
 }
