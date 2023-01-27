@@ -1,7 +1,7 @@
 {
   "name": "strapi-common-api",
   "description": "provide some common request api service functions and strapi types support for strapi based frontend apps using typescript",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/LittleBadBad/strapi-common-type"
@@ -17,7 +17,11 @@
     "frontend",
     "types",
     "strapi types",
-    "typescript"
+    "typescript",
+    "http api",
+    "user permission",
+    "collection type",
+    "single type"
   ],
   "peerDependencies": {
     "axios": "^1.2.4",
