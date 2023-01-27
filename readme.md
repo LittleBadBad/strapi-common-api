@@ -130,24 +130,34 @@ query – strapi query object
 - emailConfirm
 
 ```typescript
-import {login} from "strapi-common-api"
+import {auth, collection, single} from "strapi-common-api"
+import {Post} from "./Post";
+import {Global} from "./Global";
 
 // here your editor will give you some hints on params and return data
-login({identifier, password})
+auth.login({identifier, password})
     .then(({user, jwt}) => {
-        // to some operates...
+        // do something ...
     })
-```
 
-to avoid name duplicate, you can write like this
+collection.getMany<Post>("posts", {
+    filters: {
+        title: {
+            $eq: "test"
+        }
+    },
+    populate: {// support multi-level populate
+        user: {
+            populate: ["avatar"]
+        }
+    }
+}).then(({data, meta}) => {
+    // do something ...
+})
 
-```typescript
-import strapiService from "strapi-common-api"
-// or
-import * as strapiService from "strapi-common-api"
-
-strapiService.login({identifier, password})
-strapiService.post("restaurant", {name: "", location: ""})
+single.get<Global>("global").then(r => {
+    // do something ...
+})
 ```
 
 ### objects
