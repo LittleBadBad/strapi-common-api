@@ -4,7 +4,7 @@
   "version": "0.1.11",
   "license": "MIT",
   "repository": {
-    "url": "https://github.com/LittleBadBad/strapi-common-type"
+    "url": "https://github.com/LittleBadBad/strapi-common-api"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
