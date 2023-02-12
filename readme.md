@@ -24,6 +24,10 @@ yarn add strapi-common-api
 
 err... there are too many types exported, here only introduce some key types
 
+- Populate
+
+strapi populate object type
+
 - Query
 
 query object followed by each strapi url, use `qs` library to stringify it, schema of query object follows

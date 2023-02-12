@@ -3,6 +3,7 @@ import {collection, Filters, InputData, MergeAttrs, PickOther, Populate, Sort} f
 import {PostVote} from "./PostVote";
 import {Article} from "./Article";
 import {Query} from "../dist";
+import {Category} from "./Category";
 
 const a: MergeAttrs<Post> = {
     content: undefined,
@@ -86,7 +87,17 @@ collection.getMany<Article>('articles', {
     },
     populate: {
         author: {
-            populate: ["avatar", "s"]
+            populate: ["avatar", "articles"]
+        }
+    }
+})
+
+collection.getMany<Category>("categories",{
+    populate:{
+        articles:{
+            populate:{
+
+            }
         }
     }
 })

@@ -19,7 +19,7 @@ function getMany<T extends BaseType = BaseType>(type: string, query?: Query<T>):
  * @param id resources id
  * @param query strapi query object
  */
-function getOne<T extends BaseType = BaseType>(type: string, id: number, query?: Query<T>): Promise<Response<T>> {
+function getOne<T extends BaseType = BaseType>(type: string, id: number | string, query?: Query<T>): Promise<Response<T>> {
     return strapiRequest.get(`/${type}/${id}?${qs.stringify(query, {encodeValuesOnly: true})}`)
         .then(r => r.data)
 }
