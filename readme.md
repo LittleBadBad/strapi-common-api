@@ -28,6 +28,10 @@ err... there are too many types exported, here only introduce some key types
 
 strapi populate object type
 
+```typescript
+type Q=
+```
+
 - Query
 
 query object followed by each strapi url, use `qs` library to stringify it, schema of query object follows

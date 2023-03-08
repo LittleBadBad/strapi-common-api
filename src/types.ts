@@ -106,7 +106,7 @@ export type PopulateObj<T extends BaseType> = {
 }
 
 export type Populate<T extends BaseType> =
-    (keyof PickOther<T["attributes"]>)[] | PopulateObj<T> | "*"
+    (keyof PickOther<T["attributes"]>)[] | PopulateObj<T> | "*" | "deep" | number | ["deep",number]
 
 /**
  * query object followed by each strapi url
