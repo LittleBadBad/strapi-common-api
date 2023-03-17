@@ -26,14 +26,31 @@ export type Locale = 'ar' |
     'zh' |
     'all'
 
+export type BaseType = { id: number, attributes: Record<string, any | { data: any }> }
+
+export type PickByType<T, Value> = {
+    [P in keyof T as T[P] extends Value | undefined ? P : never]: T[P]
+}
+
+export type OmitByType<T, Value> = {
+    [P in keyof T as T[P] extends Value | undefined ? never : P]: T[P]
+}
+
+export type OmitOther<T extends Record<string, any | { data: any }>> = OmitByType<T, { data: any }>
+export type PickOther<T extends Record<string, any | { data: any }>> = OmitByType<T, string | number | boolean>
+
+export type MergeAttrs<T extends BaseType> = {
+    [K in keyof OmitOther<T["attributes"]> | "id"]?:
+    K extends "id" ? number : T["attributes"][K]
+}
 export type WhereParams<T> = {
     [K in keyof T]?: T[K] | T[K][] | AttributeOperators<T, K>;
-} & LogicalOperators<T>;
+}
 
-type LogicalOperators<T> = {
-    $and?: WhereParams<T>[];
-    $or?: WhereParams<T>[];
-    $not?: WhereParams<T>;
+type LogicalOperators<T extends BaseType> = {
+    $and?: Filters<T>[];
+    $or?: Filters<T>[];
+    $not?: Filters<T>;
 };
 
 type AttributeOperators<T, K extends keyof T> = {
@@ -54,39 +71,23 @@ type AttributeOperators<T, K extends keyof T> = {
     $endsWith?: T[K];
     $null?: boolean;
     $notNull?: boolean;
-    $not?: WhereParams<T> | AttributeOperators<T, K>;
 };
 
-export type BaseType = { id: number, attributes: Record<string, any | { data: any }> }
+export type CommonFilters<T extends BaseType> =
+    WhereParams<OmitOther<MergeAttrs<T>>>
 
-export type PickByType<T, Value> = {
-    [P in keyof T as T[P] extends Value | undefined ? P : never]: T[P]
-}
+export type FiltersWithoutLogical<T extends BaseType> =
+    CommonFilters<T> & RelationFilters<T>
 
-export type OmitByType<T, Value> = {
-    [P in keyof T as T[P] extends Value | undefined ? never : P]: T[P]
-}
-
-export type OmitOther<T extends Record<string, any | { data: any }>> = OmitByType<T, { data: any }>
-export type PickOther<T extends Record<string, any | { data: any }>> = OmitByType<T, string | number | boolean>
-
-export type MergeAttrs<T extends BaseType> = {
-    [K in keyof OmitOther<T["attributes"]> | "id"]?:
-    K extends "id" ? number : T["attributes"][K]
-}
-
-export type RelationData<T extends BaseType> = {
+export type RelationFilters<T extends BaseType> = {
     [K in keyof PickOther<T["attributes"]>]?:
-    MergeAttrs<PickOther<T["attributes"]>[K]["data"]>
-}
-
-type RelationFilters<T extends BaseType> = {
-    [K in keyof PickOther<T["attributes"]>]?:
-    WhereParams<MergeAttrs<PickOther<T["attributes"]>[K]["data"]>>
+    Filters<ExtractArr<PickOther<T["attributes"]>[K]["data"]>>
 }
 
 export type Filters<T extends BaseType> =
-    WhereParams<MergeAttrs<T> & RelationFilters<T>>
+    FiltersWithoutLogical<T> & LogicalOperators<T>
+
+type ExtractArr<T> = T extends Array<any> ? T[number] : T
 
 type Sortables<T> = {
     // check sortable
@@ -102,11 +103,12 @@ export type Sort<T> = Sortables<T>
 
 
 export type PopulateObj<T extends BaseType> = {
-    [K in keyof PickOther<T["attributes"]>]?: { populate?: Populate<Required<T["attributes"]>[K]["data"]> }
+    [K in keyof PickOther<T["attributes"]>]?:
+    { populate?: Populate<ExtractArr<Required<T["attributes"]>[K]["data"]>> }
 }
 
 export type Populate<T extends BaseType> =
-    (keyof PickOther<T["attributes"]>)[] | PopulateObj<T> | "*" | "deep" | number | ["deep",number]
+    (keyof PickOther<T["attributes"]>)[] | PopulateObj<T> | "*" | "deep" | number | ["deep", number]
 
 /**
  * query object followed by each strapi url
@@ -123,7 +125,7 @@ export interface Query<T extends BaseType> {
 }
 
 export type ResponseMeta = {
-    pagination: ({ start: number, limit: number, } |
+    pagination?: ({ start: number, limit: number, } |
         { page: number, pageSize: number, pageCount: number }) &
         { total: number }
 }
@@ -143,7 +145,15 @@ export interface User<T = UserInfo> {
     attributes: T
 }
 
+/**
+ * type of data when post or put
+ */
 export type InputData<T extends BaseType> = MergeAttrs<T> & RelationData<T>
+
+export type RelationData<T extends BaseType> = {
+    [K in keyof PickOther<T["attributes"]>]?:
+    MergeAttrs<ExtractArr<PickOther<T["attributes"]>[K]["data"]>>
+}
 
 export type UserLogged<T = UserInfo> = {
     user: T & { id: number },

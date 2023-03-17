@@ -4,8 +4,8 @@ export interface UserInfo {
     provider: string;
     confirmed: boolean;
     blocked: boolean;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string
+    updatedAt: string
 }
 
 export interface User {

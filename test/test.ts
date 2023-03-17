@@ -1,4 +1,5 @@
 import {Post} from "./Post";
+import {Comment} from "./Comment";
 import {collection, Filters, InputData, MergeAttrs, PickOther, Populate, Sort} from "../src";
 import {PostVote} from "./PostVote";
 import {Article} from "./Article";
@@ -30,19 +31,18 @@ const c: Filters<Post> = {
     user: {
         username: {
             $eq: ""
-        }
+        },
     },
     $or: [{
         content: {
             $contains: ""
         },
+
         title: {
             $in: [""]
         },
         user: {
-            id: {
-                $eq: 1
-            }
+            username: ""
         }
     }]
 }
@@ -92,12 +92,61 @@ collection.getMany<Article>('articles', {
     }
 })
 
-collection.getMany<Category>("categories",{
-    populate:{
-        articles:{
-            populate:{
-
-            }
+collection.getMany<Category>("categories", {
+    populate: {
+        articles: {
+            populate: {}
         }
     }
 })
+
+type P = Populate<Post>
+
+const p1: P = "deep"
+const p2: P = ["deep", 10]
+const p3: P = 10
+const p4: P = "*"
+const p5: P = ["user", "comments"]
+const p6: P = {
+    comments: {
+        populate: ["user", "post", "comment_votes"]
+    },
+    post_likes: {
+        populate: ["user"]
+    }
+}
+
+type F = Filters<Post>
+
+const f1: F = {
+    user: {
+        username: {
+            $eq: "littlebadbad",
+            $null: true,
+            $containsi: "little",
+            $startsWith: "l"
+        }
+    },
+    $and: [
+        {content: {$contains: "hello"}},
+        {title: {$contains: "hi"}}
+    ],
+    comments: {
+        content: {
+            $startsWith: "haha"
+        },
+        user: {
+            username: {
+                $startsWith: "l"
+            }
+        }
+    },
+    $not: {
+        user: {
+            username: {
+                $startsWith: "a"
+            }
+        }
+    }
+
+}

@@ -26,10 +26,71 @@ err... there are too many types exported, here only introduce some key types
 
 - Populate
 
-strapi populate object type
+strapi [populate](https://docs.strapi.io/dev-docs/api/rest/populate-select#population) object type
 
 ```typescript
-type Q=
+import {Populate} from "./types";
+import {Post} from "./Post";
+
+type P = Populate<Post>
+
+const p1: P = "deep"
+const p2: P = ["deep", 10]
+const p3: P = 10
+const p4: P = "*"
+const p5: P = ["user", "comments"]
+const p6: P = {
+    comments: {
+        populate: ["user", "post", "comment_votes"]
+    },
+    post_likes: {
+        populate: ["user"]
+    }
+}
+```
+
+- Filters 
+
+strapi [filters](https://docs.strapi.io/dev-docs/api/rest/filters-locale-publication#filtering) object type
+
+```typescript
+import {Filters} from "./types";
+import {Post} from "./Post";
+
+type F = Filters<Post>
+
+const f1: F = {
+    user: {
+        username: {
+            $eq: "littlebadbad",
+            $null: true,
+            $containsi: "little",
+            $startsWith: "l"
+        }
+    },
+    $and: [
+        {content: {$contains: "hello"}},
+        {title: {$contains: "hi"}}
+    ],
+    comments: {
+        content: {
+            $startsWith: "haha"
+        },
+        user: {
+            username: {
+                $startsWith: "l"
+            }
+        }
+    },
+    $not: {
+        user: {
+            username: {
+                $startsWith: "a"
+            }
+        }
+    }
+
+}
 ```
 
 - Query
