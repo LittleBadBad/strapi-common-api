@@ -119,6 +119,12 @@ const p6: P = {
 type F = Filters<Post>
 
 const f1: F = {
+    // common field
+    content: {
+        $contains: "haha"
+    },
+
+    // relation field
     user: {
         username: {
             $eq: "littlebadbad",
@@ -127,10 +133,8 @@ const f1: F = {
             $startsWith: "l"
         }
     },
-    $and: [
-        {content: {$contains: "hello"}},
-        {title: {$contains: "hi"}}
-    ],
+
+    // array relation field
     comments: {
         content: {
             $startsWith: "haha"
@@ -141,6 +145,12 @@ const f1: F = {
             }
         }
     },
+
+    // logical operator filter
+    $and: [
+        {content: {$contains: "hello"}},
+        {title: {$contains: "hi"}}
+    ],
     $not: {
         user: {
             username: {
@@ -148,5 +158,4 @@ const f1: F = {
             }
         }
     }
-
 }
