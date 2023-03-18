@@ -2,7 +2,7 @@
 
 provide some common request api service functions and
 strapi types support for strapi based frontend apps,
-which is something that is not officially implemented
+which is something that is not yet officially implemented
 by strapi[[1]](https://github.com/strapi/strapi/blob/main/packages/core/database/lib/index.d.ts)
 [[2]](https://github.com/strapi/strapi/blob/main/packages/core/strapi/lib/core-api/service/index.d.ts)
 <img alt="1" src="img/1.png" width="450"/>
@@ -190,7 +190,7 @@ import {auth, collection, single,strapiRequest} from "strapi-common-api"
 import {Post} from "./Post";
 import {Global} from "./Global";
 
-//override your strapi api url like this
+// override your strapi api url like this
 strapiRequest.defaults.baseURL = "http://localhost:1337/api"// defalut base url value
 
 // here your editor will give you some hints on params and return data
