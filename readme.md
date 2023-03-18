@@ -23,9 +23,7 @@ or
 yarn add strapi-common-api
 ```
 
-## usage
-
-### types
+## usage - types
 
 your IDE will give some hints when coding objects of these types, like this
 
@@ -33,7 +31,7 @@ your IDE will give some hints when coding objects of these types, like this
 
 err... there are too many types exported, here only introduce some key types
 
-- Populate
+### Populate
 
 strapi [populate](https://docs.strapi.io/dev-docs/api/rest/populate-select#population) object type
 
@@ -69,7 +67,7 @@ const p6: P = {
 }
 ```
 
-- Filters
+### Filters
 
 strapi [filters](https://docs.strapi.io/dev-docs/api/rest/filters-locale-publication#filtering) object type
 
@@ -122,7 +120,7 @@ const f1: F = {
 }
 ```
 
-- Sort
+### Sort
 
 strapi [sort](https://docs.strapi.io/dev-docs/api/rest/sort-pagination#sorting) object type
 
@@ -148,7 +146,7 @@ const s4: S = [
 ]
 ```
 
-- Query
+### Query
 
 query object followed by each strapi url, use `qs` library to stringify it, schema of query object follows
 the [strapi api parameters](https://docs.strapi.io/developer-docs/latest/developer-resources/database-apis-reference/rest/api-parameters.html)
@@ -175,7 +173,7 @@ getPosts({
 })
 ```
 
-### functions
+## usage - functions
 
 the above types were wrapped in functions below,
 declare the type of the entity to get the correct
@@ -184,8 +182,8 @@ type prompt information
 but at first remember to override
 strapi request instance, which based on
 [axios](https://axios-http.com/) module, you can customize 
-your interceptors(such as base url or add jwt token before
-request) or some other params
+your interceptors (such as add jwt token before
+request) or some other params (such as base url)
 
 ```typescript
 import {auth, collection, single,strapiRequest} from "strapi-common-api"
@@ -193,7 +191,7 @@ import {Post} from "./Post";
 import {Global} from "./Global";
 
 //override your strapi api url like this
-strapiRequest.defaults.baseURL = "http://localhost:1337/api"
+strapiRequest.defaults.baseURL = "http://localhost:1337/api"// defalut base url value
 
 // here your editor will give you some hints on params and return data
 auth.login({identifier, password})
@@ -221,7 +219,7 @@ single.get<Global>("global").then(r => {
 })
 ```
 
-#### collection type api
+### collection type api
 
 - getMany
 
@@ -283,13 +281,13 @@ id – resource id
 
 query – strapi query object
 
-#### single type api
+### single type api
 
 - get
 - put
 - remove
 
-#### auth api
+### auth api
 
 - login
 - register
