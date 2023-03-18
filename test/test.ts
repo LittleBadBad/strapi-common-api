@@ -47,7 +47,7 @@ const c: Filters<Post> = {
     }]
 }
 
-const d: Sort<MergeAttrs<Post>> = "content"
+const d: Sort<Post> = "content"
 
 const e: keyof PickOther<Post["attributes"]> = "comments"
 
@@ -102,17 +102,28 @@ collection.getMany<Category>("categories", {
 
 type P = Populate<Post>
 
+// common populate
 const p1: P = "deep"
 const p2: P = ["deep", 10]
 const p3: P = 10
 const p4: P = "*"
 const p5: P = ["user", "comments"]
 const p6: P = {
+    // multi level populate
+    user: {
+        populate: "*"
+    },
     comments: {
         populate: ["user", "post", "comment_votes"]
     },
+
+    // deep populate
     post_likes: {
-        populate: ["user"]
+        populate: {
+            user: {
+                populate: "*"
+            }
+        }
     }
 }
 
@@ -159,3 +170,20 @@ const f1: F = {
         }
     }
 }
+
+type S = Sort<Post>
+
+const s1: S = "content"
+const s2: S = ["content", "id"]
+const s3: S = {
+    content: "DESC",
+    title: "ASC"
+}
+const s4: S = [
+    {
+        content: "DESC"
+    },
+    {
+        title: "ASC"
+    }
+]

@@ -96,10 +96,11 @@ type Sortables<T> = {
 
 type Direction = 'asc' | 'ASC' | 'DESC' | 'desc';
 
-export type Sort<T> = Sortables<T>
-    | Sortables<T>[]
-    | { [K in Sortables<T>]?: Direction }
-    | { [K in Sortables<T>]?: Direction }[];
+export type Sort<T extends BaseType> =
+    Sortables<MergeAttrs<T>>
+    | Sortables<MergeAttrs<T>>[]
+    | { [K in Sortables<MergeAttrs<T>>]?: Direction }
+    | { [K in Sortables<MergeAttrs<T>>]?: Direction }[];
 
 
 export type PopulateObj<T extends BaseType> = {
@@ -119,7 +120,7 @@ export interface Query<T extends BaseType> {
     publicationState?: "live" | "preview"
     pagination?: { start: number, limit: number, withCount: boolean } |
         { page: number, pageSize: number, withCount: boolean }
-    sort?: Sort<MergeAttrs<T>>
+    sort?: Sort<T>
     fields?: (keyof T["attributes"])[]
     populate?: Populate<T>
 }
