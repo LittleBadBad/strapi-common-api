@@ -1,4 +1,4 @@
-export * from "./collection"
-export * from "./auth"
+export {collection} from "./collection"
+export {auth} from "./auth"
 export * from "./request"
-export * from "./single"
+export {single} from "./single"

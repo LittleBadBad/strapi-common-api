@@ -1,70 +1,70 @@
 import {UserInfo, UserLogged} from "../types";
 import {strapiRequest} from "./request";
 
-function login<T = UserInfo>({identifier, password}: {
+export const _login = (strapiRequest) => <T = UserInfo>({identifier, password}: {
     identifier: string,
     password: string,
-}): Promise<UserLogged<T>> {
+}): Promise<UserLogged<T>> => {
     return strapiRequest.post("/auth/local",
         {identifier, password})
         .then(r => r.data)
 }
 
-function register<T = UserInfo>({username, email, password}: {
+export const _register = (strapiRequest) => <T = UserInfo>({username, email, password}: {
     username: string
     email: string
     password: string
-}): Promise<UserLogged<T>> {
+}): Promise<UserLogged<T>> => {
     return strapiRequest.post("/auth/local/register",
         {username, email, password})
         .then(r => r.data)
 }
 
-function forgotPassword({email}: { email: string }) {
+export const _forgotPassword = (strapiRequest) => ({email}: { email: string }) => {
     return strapiRequest.post("/auth/forgot-password",
         {email})
         .then(r => r.data)
 }
 
-function resetPassword({code, password, passwordConfirmation}: {
+export const _resetPassword = (strapiRequest) => ({code, password, passwordConfirmation}: {
     code: string
     password: string
     passwordConfirmation: string
-}) {
+}) => {
     return strapiRequest.post("/auth/reset-password",
         {code, password, passwordConfirmation})
         .then(r => r.data)
 }
 
-function changePassword({currentPassword, password, passwordConfirmation}: {
+export const _changePassword = (strapiRequest) => ({currentPassword, password, passwordConfirmation}: {
     currentPassword: string
     password: string
     passwordConfirmation: string
-}) {
+}) => {
     return strapiRequest.post("/auth/change-password",
         {currentPassword, password, passwordConfirmation})
         .then(r => r.data)
 }
 
-function sendEmailConfirm({email}: {
+export const _sendEmailConfirm = (strapiRequest) => ({email}: {
     email: string
-}) {
+}) => {
     return strapiRequest.post("/auth/send-email-confirmation",
         {email})
         .then(r => r.data)
 }
 
-function emailConfirm(token: string) {
+export const _emailConfirm = (strapiRequest) => (token: string) => {
     return strapiRequest.get(`/auth/email-confirmation?confirmation=${token}`)
         .then(r => r.data)
 }
 
 export const auth = {
-    login,
-    register,
-    forgotPassword,
-    resetPassword,
-    changePassword,
-    sendEmailConfirm,
-    emailConfirm
+    login: _login(strapiRequest),
+    register: _register(strapiRequest),
+    forgotPassword: _forgotPassword(strapiRequest),
+    resetPassword: _resetPassword(strapiRequest),
+    changePassword: _changePassword(strapiRequest),
+    sendEmailConfirm: _sendEmailConfirm(strapiRequest),
+    emailConfirm: _emailConfirm(strapiRequest)
 }

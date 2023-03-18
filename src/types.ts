@@ -118,14 +118,14 @@ export interface Query<T extends BaseType> {
     locale?: Locale
     filters?: Filters<T>
     publicationState?: "live" | "preview"
-    pagination?: { start: number, limit: number, withCount: boolean } |
-        { page: number, pageSize: number, withCount: boolean }
+    pagination?: { start: number | string, limit: number | string, withCount: boolean } |
+        { page: number | string, pageSize: number | string, withCount: boolean }
     sort?: Sort<T>
     fields?: (keyof T["attributes"])[]
     populate?: Populate<T>
 }
 
-export type ResponseMeta = {
+export type PayloadMeta = {
     pagination?: ({ start: number, limit: number, } |
         { page: number, pageSize: number, pageCount: number }) &
         { total: number }
@@ -169,7 +169,7 @@ export type UserLogged<T = UserInfo> = {
     jwt: string
 }
 
-export type Response<T> = {
+export type Payload<T> = {
     data: T
-    meta: ResponseMeta
+    meta: PayloadMeta
 }
