@@ -156,6 +156,14 @@ export type RelationData<T extends BaseType> = {
     MergeAttrs<ExtractArr<PickOther<T["attributes"]>[K]["data"]>>
 }
 
+export type Relation = number[] | { id: number }[]
+
+export type RelationField = {
+    connect?: Relation
+    disconnect?: Relation
+    set?: Relation
+}
+
 export type UserLogged<T = UserInfo> = {
     user: T & { id: number },
     jwt: string

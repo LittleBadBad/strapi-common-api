@@ -1,4 +1,4 @@
-import {BaseType, InputData, Query, Response} from "../types";
+import {BaseType, InputData, Query, RelationField, Response} from "../types";
 import {strapiRequest} from "./request";
 import qs from "qs";
 
@@ -42,7 +42,7 @@ function post<T extends BaseType = BaseType>(type: string, data: InputData<T>, q
  * @param data post data
  * @param query strapi query object
  */
-function put<T extends BaseType = BaseType>(type: string, id: number, data: InputData<T>, query?: Query<T>): Promise<Response<T>> {
+function put<T extends BaseType = BaseType>(type: string, id: number, data: InputData<T>&RelationField, query?: Query<T>): Promise<Response<T>> {
     return strapiRequest.put(`/${type}/${id}?${qs.stringify(query, {encodeValuesOnly: true})}`,
         {data}).then(r => r.data)
 }
