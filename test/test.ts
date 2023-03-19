@@ -1,6 +1,16 @@
 import {Post} from "./Post";
 import {Comment} from "./Comment";
-import {collection, Filters, InputData, MergeAttrs, PickOther, Populate, Sort, strapiRequest} from "../src";
+import {
+    collection,
+    createStrapiClient,
+    Filters,
+    InputData,
+    MergeAttrs,
+    PickOther,
+    Populate,
+    Sort,
+    strapiRequest
+} from "../src";
 import {PostVote} from "./PostVote";
 import {Article} from "./Article";
 import {Query} from "../dist";
@@ -188,4 +198,4 @@ const s4: S = [
     }
 ]
 
-strapiRequest.defaults.baseURL="http://localhost:1337/api"//your strapi api url
+strapiRequest.defaults.baseURL = "http://localhost:1337/api"//your strapi api url
