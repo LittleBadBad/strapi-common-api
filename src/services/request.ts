@@ -4,7 +4,7 @@ import * as collection from "./collection";
 import * as single from "./single";
 
 export const strapiRequest: AxiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_STRAPI_API || "http://localhost:1337/api",
+    baseURL: "http://localhost:1337/api",
     timeout: 10000
 });
 
