@@ -9,7 +9,7 @@ import qs from "qs";
  */
 export const _getMany = (strapiRequest) => <T extends BaseType = BaseType>(type: string, query?: Query<T>): Promise<Payload<T[]>> => {
     return strapiRequest.get(`/${type}?${qs.stringify(query, {encodeValuesOnly: true})}`)
-        .then(r => r.data)
+        .then(r => type === "users" ? {data: r.data, meta: {}} : r.data)
 }
 
 /**
@@ -18,7 +18,7 @@ export const _getMany = (strapiRequest) => <T extends BaseType = BaseType>(type:
  */
 export const _getOne = (strapiRequest) => <T extends BaseType = BaseType>(type: string, id: number | string, query?: Query<T>): Promise<Payload<T>> => {
     return strapiRequest.get(`/${type}/${id}?${qs.stringify(query, {encodeValuesOnly: true})}`)
-        .then(r => r.data)
+        .then(r => type === "users" ? {data: r.data, meta: {}} : r.data)
 }
 
 /**
@@ -49,9 +49,9 @@ export const _remove = (strapiRequest) => <T extends BaseType = BaseType>(type: 
 }
 
 export const collection = {
-    getOne:_getOne(strapiRequest),
-    getMany:_getMany(strapiRequest),
-    post:_post(strapiRequest),
-    put:_put(strapiRequest),
-    remove:_remove(strapiRequest)
+    getOne: _getOne(strapiRequest),
+    getMany: _getMany(strapiRequest),
+    post: _post(strapiRequest),
+    put: _put(strapiRequest),
+    remove: _remove(strapiRequest)
 }
