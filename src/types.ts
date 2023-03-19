@@ -141,7 +141,7 @@ export interface UserInfo {
     updatedAt: string;
 }
 
-export interface User<T = UserInfo> {
+export interface User<T = UserInfo & Record<string, any>> {
     id: number;
     attributes: T
 }
