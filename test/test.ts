@@ -136,6 +136,14 @@ const p6: P = {
         }
     }
 }
+const p7: P = {
+    0: "comments",
+    1: "post_votes",
+    2: "user",
+    post_likes: {
+        populate: ["user"]
+    }
+}
 
 type F = Filters<Post>
 

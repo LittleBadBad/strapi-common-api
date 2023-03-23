@@ -106,7 +106,7 @@ export type Sort<T extends BaseType> =
 export type PopulateObj<T extends BaseType> = {
     [K in keyof PickOther<T["attributes"]>]?:
     { populate?: Populate<ExtractArr<Required<T["attributes"]>[K]["data"]>> }
-}
+} & Record<number, keyof PickOther<T["attributes"]>>
 
 export type Populate<T extends BaseType> =
     (keyof PickOther<T["attributes"]>)[] | PopulateObj<T> | "*" | "deep" | number | ["deep", number]
