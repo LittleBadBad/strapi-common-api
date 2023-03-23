@@ -137,9 +137,9 @@ const p6: P = {
     }
 }
 const p7: P = {
-    0: "comments",
-    1: "post_votes",
-    2: "user",
+    comments: "*",
+    post_votes: "*",
+    user: "*",
     post_likes: {
         populate: ["user"]
     }

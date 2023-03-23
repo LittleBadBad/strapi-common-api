@@ -218,10 +218,10 @@ const p6: P = {
         }
     }
 }
-const p7: P = { // array like & object like populate
-    0: "comments",
-    1: "post_votes",
-    2: "user",
+const p7: P = {
+    comments: "*",
+    post_votes: "*",
+    user: "*",
     post_likes: {
         populate: ["user"]
     }
