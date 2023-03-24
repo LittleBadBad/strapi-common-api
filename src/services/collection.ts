@@ -1,4 +1,4 @@
-import {BaseType, InputData, Query, RelationField, Payload, User} from "../types";
+import {BaseType, InputData, Query, RelationField, Payload} from "../types";
 import {strapiRequest} from "./request";
 import qs from "qs";
 
