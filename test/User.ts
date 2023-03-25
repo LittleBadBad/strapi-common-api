@@ -1,3 +1,5 @@
+import {Comment} from "./Comment";
+
 export interface UserInfo {
     username: string;
     email: string;
@@ -6,6 +8,7 @@ export interface UserInfo {
     blocked: boolean;
     createdAt: string
     updatedAt: string
+    comments: { data: Comment[] }
 }
 
 export interface User {

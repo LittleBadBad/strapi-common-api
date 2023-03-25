@@ -1,4 +1,4 @@
-import {BaseType, ExtractArr, MergeAttrs, PickOther} from "./utils";
+import {BaseType, ExtractArr, MergeAttrs, PickRelations, RelationKeys} from "./utils";
 
 
 export type PickByType<T, Value> = {
@@ -32,8 +32,8 @@ export interface User<T = UserInfo & Record<string, any>> {
 export type InputData<T extends BaseType> = MergeAttrs<T> & RelationData<T>
 
 export type RelationData<T extends BaseType> = {
-    [K in keyof PickOther<T["attributes"]>]?:
-    MergeAttrs<ExtractArr<PickOther<T["attributes"]>[K]["data"]>>
+    [K in RelationKeys<T>]?:
+    MergeAttrs<ExtractArr<PickRelations<T>[K]["data"]>>
 }
 
 export type Relation = number[] | { id: number }[]

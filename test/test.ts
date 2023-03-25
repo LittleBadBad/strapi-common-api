@@ -1,19 +1,17 @@
 import {Post} from "./Post";
-import {Comment} from "./Comment";
 import {
     collection,
-    createStrapiClient,
+    createStrapiClient, DeepPopulateArr,
     Filters,
     InputData,
     MergeAttrs,
-    PickOther,
-    Populate,
+    PickRelations,
+    Populate, Query, RelationKeys,
     Sort,
     strapiRequest
 } from "../src";
 import {PostVote} from "./PostVote";
 import {Article} from "./Article";
-import {Query} from "../dist";
 import {Category} from "./Category";
 
 const a: MergeAttrs<Post> = {
@@ -59,7 +57,7 @@ const c: Filters<Post> = {
 
 const d: Sort<Post> = "content"
 
-const e: keyof PickOther<Post["attributes"]> = "comments"
+const e: keyof PickRelations<Post> = "comments"
 
 const f: InputData<Post> = {
     content: "",
@@ -69,7 +67,11 @@ const f: InputData<Post> = {
     }
 }
 
-const g: keyof PickOther<Article["attributes"]> = "blocks"
+const g: RelationKeys<Article> = "cover"
+
+type DP = DeepPopulateArr<Post, 2>[]
+
+const dp: DP = ["comments.comment_votes"]
 
 const h: Populate<Article> = {
     author: {
@@ -110,7 +112,23 @@ collection.getMany<Category>("categories", {
     }
 })
 
+
+
 type P = Populate<Post>
+const p:P= {
+    comments:{
+        populate:{
+            comment_votes:{
+                populate:["user","user.comments"]
+            }
+        }
+    }
+}
+
+
+
+
+
 
 // common populate
 const p1: P = "deep"

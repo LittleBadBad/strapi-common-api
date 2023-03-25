@@ -1,4 +1,4 @@
-import {BaseType, ExtractArr, MergeAttrs, OmitOther, PickOther} from "./utils";
+import {BaseType, ExtractArr, MergeAttrs, OmitByType, OmitRelations, PickRelations, RelationKeys} from "./utils";
 
 type AttributeOperators<T, K extends keyof T> = {
     $eq?: T[K] | Array<T[K]>;
@@ -25,12 +25,12 @@ export type WhereParams<T> = {
 }
 
 export type CommonFilters<T extends BaseType> =
-    WhereParams<OmitOther<MergeAttrs<T>>>
+    WhereParams<OmitByType<MergeAttrs<T>, { data: any }>>
 
 
 export type RelationFilters<T extends BaseType> = {
-    [K in keyof PickOther<T["attributes"]>]?:
-    Filters<ExtractArr<PickOther<T["attributes"]>[K]["data"]>>
+    [K in RelationKeys<T>]?:
+    Filters<ExtractArr<PickRelations<T>[K]["data"]>>
 }
 
 export type FiltersWithoutLogical<T extends BaseType> =
