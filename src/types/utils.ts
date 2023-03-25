@@ -30,6 +30,8 @@ export type MergeAttrs<T extends BaseType> = {
     K extends "id" ? number : T["attributes"][K]
 }
 
+export type RelationObj<T extends BaseType, K extends RelationKeys<T>> =
+    Required<T["attributes"]>[K]["data"]
 
 export type Concat<T extends any[], U extends any[]> = [...T, ...U];
 

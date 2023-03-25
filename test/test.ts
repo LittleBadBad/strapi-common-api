@@ -107,7 +107,13 @@ collection.getMany<Article>('articles', {
 collection.getMany<Category>("categories", {
     populate: {
         articles: {
-            populate: {}
+            populate: ["author.articles"],
+            sort:"name",
+            filters:{
+                description:{
+                    $containsi: "123"
+                }
+            }
         }
     }
 })

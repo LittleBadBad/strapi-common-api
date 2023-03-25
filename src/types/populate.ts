@@ -1,4 +1,6 @@
-import {BaseType, ExtractArr, LengthOfString, RelationKeys} from "./utils";
+import {BaseType, ExtractArr, LengthOfString, RelationKeys, RelationObj} from "./utils";
+import {Sort} from "./sort";
+import {Filters} from "./filters";
 
 type GenNode<K extends string | number, IsRoot extends boolean> =
     IsRoot extends true ? `${K}` : `.${K}`
@@ -13,12 +15,17 @@ export type DeepPopulateArr<
     K extends string | number ?
         GenNode<K, IsRoot> |
         (LengthOfString<L> extends ML ? never :
-            `${GenNode<K, IsRoot>}${DeepPopulateArr<ExtractArr<T["attributes"][K]["data"]>, ML, false, `${L}1`>}`)
+            `${GenNode<K, IsRoot>}${DeepPopulateArr<ExtractArr<RelationObj<T, K>>, ML, false, `${L}1`>}`)
         : never;
 
 export type PopulateObj<T extends BaseType> = {
     [K in RelationKeys<T>]?:
-    { populate?: Populate<ExtractArr<Required<T["attributes"]>[K]["data"]>> } | "*"
+    (RelationObj<T, K> extends Array<any> ?
+        {
+            sort?: Sort<T>
+            populate?: Populate<ExtractArr<RelationObj<T, K>>>
+            filters?: Filters<T>
+        } : { populate?: Populate<ExtractArr<RelationObj<T, K>>> })| "*"
 }
 export type Populate<T extends BaseType> =
     (DeepPopulateArr<T>)[] | PopulateObj<T> | "*" | "deep" | number | ["deep", number]
