@@ -1,7 +1,7 @@
-import {UserInfo, UserLogged} from "../types";
+import {UserAttrs, UserLogged} from "../types";
 import {strapiRequest} from "./request";
 
-export const _login = (strapiRequest) => <T = UserInfo>({identifier, password}: {
+export const _login = (strapiRequest) => <T = UserAttrs>({identifier, password}: {
     identifier: string,
     password: string,
 }): Promise<UserLogged<T>> => {
@@ -10,7 +10,7 @@ export const _login = (strapiRequest) => <T = UserInfo>({identifier, password}: 
         .then(r => r.data)
 }
 
-export const _register = (strapiRequest) => <T = UserInfo>({username, email, password}: {
+export const _register = (strapiRequest) => <T = UserAttrs>({username, email, password}: {
     username: string
     email: string
     password: string

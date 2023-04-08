@@ -11,7 +11,7 @@ export type PayloadMeta = {
         { total: number }
 }
 
-export interface UserInfo {
+export interface UserAttrs {
     username: string;
     email: string;
     provider: string;
@@ -21,7 +21,7 @@ export interface UserInfo {
     updatedAt: string;
 }
 
-export interface User<T = UserInfo & Record<string, any>> {
+export interface User<T = UserAttrs & Record<string, any>> {
     id: number;
     attributes: T
 }
@@ -44,7 +44,7 @@ export type RelationField = {
     set?: Relation
 }
 
-export type UserLogged<T = UserInfo> = {
+export type UserLogged<T = UserAttrs> = {
     user: T & { id: number },
     jwt: string
 }
