@@ -2,6 +2,7 @@ import axios, {AxiosInstance, CreateAxiosDefaults} from "axios";
 import * as auth from "./auth";
 import * as collection from "./collection";
 import * as single from "./single";
+import * as user from "./user";
 
 export const strapiRequest: AxiosInstance = axios.create({
     baseURL: "http://localhost:1337/api",
@@ -35,6 +36,9 @@ export function createStrapiClient(baseURL, config: CreateAxiosDefaults<any> = {
             get: single._get(strapiClient),
             put: single._put(strapiClient),
             remove: single._remove(strapiClient)
+        },
+        user: {
+            me: user._me(strapiClient)
         }
     }
 }

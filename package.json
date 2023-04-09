@@ -1,7 +1,7 @@
 {
   "name": "strapi-common-api",
   "description": "provide a \"strapi client SDK\" wrapped some common request api service functions and strapi types support for strapi based frontend apps, and provide some key typescript types hint help",
-  "version": "1.1.11",
+  "version": "1.2.0",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/LittleBadBad/strapi-common-api"
